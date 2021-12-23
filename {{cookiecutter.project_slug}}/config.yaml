@@ -1,0 +1,9 @@
+{{ cookiecutter.project_slug }}:
+  token: changeme
+  debug: false
+  download_dir: /tmp/{{ cookiecutter.project_slug }}
+  env: development
+  url: https://{{ cookiecutter.project_slug }}.yourdomain.com
+sentry:
+  url: null
+  environment: development

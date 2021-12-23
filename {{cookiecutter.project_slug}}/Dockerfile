@@ -26,4 +26,4 @@ COPY --from=build /app /app
 
 WORKDIR /app
 ENV PROMETHEUS_MULTIPROC_DIR=/tmp/{{cookiecutter.project_slug}}/prometheus
-ENTRYPOINT ["{{cookiecutter.project_slug}}"]
+CMD ["{{cookiecutter.project_slug}}"]

@@ -8,10 +8,33 @@ spec:
   template:
     spec:
       containers:
-      - image: img.conny.dev/conny/{{cookiecutter.docker_registry}}
+      - image: {{cookiecutter.docker_registry}}
         name: {{cookiecutter.project_slug}}
+        command:
+          - gunicorn
         args:
-          - --port=8080
+          - '{{cookiecutter.project_slug}}.main:app'
+          - -b
+          - ':8080'
+          - --timeout
+          - '120'
+          - -w
+          - '4'
+          - -c
+          - conf/gunicorn.py
+        workingDir: /app
         ports:
         - containerPort: 8080
           name: http
+          protocol: TCP
+        volumeMounts:
+          - name: config
+            mountPath: /app/current-config.yaml
+            subPath: config.yaml
+        env:
+          - name: {{cookiecutter.varEnvPrefix}}_CONF_FILE
+            value: /app/current-config.yaml
+      volumes:
+        - name: config
+          configMap:
+            name: {{cookiecutter.project_slug}}-config

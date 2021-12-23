@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from {{cookiecutter.package_name}}.api import {{cookiecutter.package_name}} as api
 
 
-def _set_attrs(app, api):
+def _set_attrs(app, appapi):
     for attr in [
         "title",
         "description",
@@ -14,7 +14,7 @@ def _set_attrs(app, api):
         "license_info",
         "servers",
     ]:
-        value = getattr(api, attr, None)
+        value = getattr(appapi, attr, None)
         if value is not None:
             setattr(app, attr, value)
 

@@ -14,7 +14,7 @@ def _parse_version():
 __version__ = _parse_version()
 
 
-def _get_git_sha():
+def get_git_sha():
     if os.path.exists("GIT_HEAD"):
         with open("GIT_HEAD", "r", encoding="utf-8") as openf:
             return openf.read()
@@ -28,6 +28,3 @@ def _get_git_sha():
         except (OSError, subprocess.CalledProcessError):
             pass
     return "unknown"
-
-
-__gitsha__ = _get_git_sha()

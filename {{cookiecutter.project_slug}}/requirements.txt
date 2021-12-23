@@ -1,5 +1,5 @@
-fastapi
-gunicorn
+click
+fastapi[all]
 pydantic
 PyYAML
 requests
@@ -11,3 +11,4 @@ async-timeout
 starlette_exporter
 paramiko
 sentry-sdk
+gunicorn>=0.19
