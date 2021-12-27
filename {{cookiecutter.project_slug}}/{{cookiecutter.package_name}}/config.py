@@ -3,7 +3,6 @@ Acquire runtime configuration from environment variables (etc).
 """
 
 import os
-from pathlib import Path
 import yaml
 
 
@@ -55,19 +54,19 @@ def envbool(value: str):
 
 APP_ENVIRON = getenv("APP_ENV", "development")
 
-{{cookiecutter.varEnvPrefix}}_API = getenv("{{cookiecutter.varEnvPrefix}}_API", "https://{{cookiecutter.project_slug}}.conny.dev")
+{{cookiecutter.varEnvPrefix}}_API = getenv("{{cookiecutter.varEnvPrefix}}_API", "https://{{cookiecutter.package_name}}.conny.dev")
 {{cookiecutter.varEnvPrefix}}_SOURCE_DIR = os.path.dirname(os.path.abspath(__file__))
 {{cookiecutter.varEnvPrefix}}_ROOT_DIR = os.path.abspath(os.path.join({{cookiecutter.varEnvPrefix}}_SOURCE_DIR, "../"))
 {{cookiecutter.varEnvPrefix}}_CONF_DIR = os.getenv(
     "{{cookiecutter.varEnvPrefix}}_CONF_DIR", os.path.join({{cookiecutter.varEnvPrefix}}_ROOT_DIR, "conf/")
 )
 {{cookiecutter.varEnvPrefix}}_CONF_FILE = os.getenv("{{cookiecutter.varEnvPrefix}}_CONF_FILE", None)
-{{cookiecutter.varEnvPrefix}}_DOWNLOAD_DIR = os.getenv("{{cookiecutter.varEnvPrefix}}_DOWNLOAD_DIR", "/tmp/{{cookiecutter.project_slug}}")
+{{cookiecutter.varEnvPrefix}}_DOWNLOAD_DIR = os.getenv("{{cookiecutter.varEnvPrefix}}_DOWNLOAD_DIR", "/tmp/{{cookiecutter.package_name}}")
 {{cookiecutter.varEnvPrefix}}_TOKEN = os.getenv(
     "{{cookiecutter.varEnvPrefix}}_TOKEN", "changeme"
 )  # Set to None or empty to skip the token
 
-{{cookiecutter.varEnvPrefix}}_TMP_DIR = os.getenv("{{cookiecutter.varEnvPrefix}}_TMP_DIR", "/tmp/{{cookiecutter.project_slug}}")
+{{cookiecutter.varEnvPrefix}}_TMP_DIR = os.getenv("{{cookiecutter.varEnvPrefix}}_TMP_DIR", "/tmp/{{cookiecutter.package_name}}")
 {{cookiecutter.varEnvPrefix}}_SENTRY_URL = os.getenv("{{cookiecutter.varEnvPrefix}}_SENTRY_URL", None)
 {{cookiecutter.varEnvPrefix}}_SENTRY_ENV = os.getenv("{{cookiecutter.varEnvPrefix}}_SENTRY_ENV", "development")
 
@@ -84,7 +83,7 @@ class {{cookiecutter.baseclass}}Config:
 
     def __init__(self, defaults=None, confpath=None):
         self.settings = {
-            "{{cookiecutter.project_slug}}": {
+            "{{cookiecutter.package_name}}": {
                 "debug": False,
                 "env": APP_ENVIRON,
                 "url": {{cookiecutter.varEnvPrefix}}_API,
@@ -106,8 +105,8 @@ class {{cookiecutter.baseclass}}Config:
             self.load_conffile(confpath)
 
     @property
-    def {{cookiecutter.project_slug}}(self):
-        return self.settings["{{cookiecutter.project_slug}}"]
+    def {{cookiecutter.package_name}}(self):
+        return self.settings["{{cookiecutter.package_name}}"]
 
     @property
     def sentry(self):

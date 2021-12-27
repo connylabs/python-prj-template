@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{cookiecutter.project_slug}}
+  labels:
+    app.kubernetes.io/name: {{cookiecutter.project_slug}}
+spec:
+  template:
+    spec:
+      containers:
+      - image: {{cookiecutter.docker_registry}}
+        name: {{cookiecutter.project_slug}}
+        command:
+          - gunicorn
+        args:
+          - '{{cookiecutter.project_slug}}.main:app'
+          - -b
+          - ':8080'
+          - --timeout
+          - '120'
+          - -w
+          - '4'
+          - -c
+          - conf/gunicorn.py
+        workingDir: /app
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        volumeMounts:
+          - name: config
+            mountPath: /app/current-config.yaml
+            subPath: config.yaml
+        env:
+          - name: {{cookiecutter.varEnvPrefix}}_CONF_FILE
+            value: /app/current-config.yaml
+      volumes:
+        - name: config
+          configMap:
+            name: {{cookiecutter.project_slug}}-config

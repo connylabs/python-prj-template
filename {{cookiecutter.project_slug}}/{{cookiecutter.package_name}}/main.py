@@ -35,6 +35,7 @@ async def add_process_time_header(request: Request, call_next):
     response.headers["X-Process-Time"] = str(process_time)
     return response
 
+
 async def add_check_token(request: Request, call_next):
     if GCONFIG.{{cookiecutter.project_slug}}["token"] and (
         "token" not in request.headers
@@ -50,7 +51,7 @@ app.add_middleware(ProxyHeadersMiddleware)
 app.add_middleware(SentryAsgiMiddleware)
 app.add_route("/metrics", handle_metrics)
 app.middleware("http")(catch_exceptions_middleware)
-### Uncomment to check a token before serving the API
+# # Uncomment to check a token before serving the API
 # app.middleware("http")(add_check_token)
 app.include_router(info.router)
 app.include_router({{cookiecutter.project_slug}}.router)

@@ -5,8 +5,8 @@ import logging
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
-import {{cookiecutter.project_slug}}
-from {{cookiecutter.project_slug}}.exception import Forbidden
+import {{cookiecutter.package_name}}
+from {{cookiecutter.package_name}}.exception import Forbidden
 
 router = APIRouter()
 
@@ -40,4 +40,4 @@ async def slow_req():
 
 @router.get("/version", tags=["info"], response_model=VersionResp)
 async def version() -> VersionResp:
-    return VersionResp(version={{cookiecutter.project_slug}}.__version__)
+    return VersionResp(version={{cookiecutter.package_name}}.__version__)

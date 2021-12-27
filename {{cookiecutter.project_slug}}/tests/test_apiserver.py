@@ -4,11 +4,10 @@ import urllib
 import requests
 import pytest
 
-import {{ cookiecutter.project_slug }}
+import {{ cookiecutter.package_name }}
 
 from fastapi.testclient import TestClient
-from {{ cookiecutter.project_slug }}.main import app
-from {{ cookiecutter.project_slug }}.config import GCONFIG
+from {{ cookiecutter.package_name }}.cli import app
 
 DEFAULT_PREFIX = "http://localhost:5000"
 

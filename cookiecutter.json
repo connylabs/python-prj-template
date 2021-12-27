@@ -1,15 +1,16 @@
 {
-    "full_name": "Antoine Legrand",
-    "email": "2t.antoine@gmail.com",
-    "github_username": "ant31",
-    "project_name": "newproj",
+    "full_name": "",
+    "email": "",
+    "github_username": "",
+    "project_name": "",
     "project_slug": "{{cookiecutter.project_name}}",
-    "varEnvPrefix": "{{cookiecutter.project_slug | upper}}",
-    "baseclass": "{{ cookiecutter.project_slug | capitalize}}",
+    "package_name": "{{cookiecutter.project_slug.lower().replace(' ', '_').replace('-', '_')}}",
+    "varEnvPrefix": "{{cookiecutter.project_slug.upper().replace(' ', '_').replace('-', '_')}}",
+    "baseclass": "{{cookiecutter.package_name | capitalize}}",
     "project_repo": "{{cookiecutter.github_username}}/{{cookiecutter.project_slug}}",
     "git": "https://github.com/{{cookiecutter.project_repo}}",
     "project_short_description": "short description",
-    "pypi_username": "{{ cookiecutter.github_username }}",
+    "pypi_username": "{{cookiecutter.github_username}}",
     "version": "0.0.1",
     "docker_registry": "quay.io/{{cookiecutter.github_username}}/{{cookiecutter.project_slug}}",
     "use_pytest": "y",
@@ -22,8 +23,5 @@
         "ISC license",
         "GNU General Public License v3",
         "Not open source"
-    ],
-    "_copy_without_render": [
-        "deploy/**.yaml"
     ]
 }

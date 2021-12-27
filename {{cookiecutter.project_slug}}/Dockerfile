@@ -1,23 +1,19 @@
-# Change base image with python:3-aline works too
-# Base image is from Dockerfile-base
-FROM python:3-alpine as build
+FROM python:3.9-slim as build
 ENV workdir=/app
 RUN mkdir -p $workdir
 WORKDIR $workdir
-RUN apk --no-cache --update add openssl ca-certificates git make
-RUN apk --no-cache add --virtual build-dependencies \
-    libffi-dev build-base openssl-dev bash git rust cargo
+RUN apt-get update
+RUN apt-get install -y openssl ca-certificates
+RUN apt-get install -y libffi-dev build-essential libssl-dev git rustc cargo
 RUN pip install pip -U
-COPY requirements_dev.txt .
-COPY requirements.txt .
-RUN pip install -r requirements_dev.txt -U
-RUN pip install -r requirements.txt -U
-RUN apk del --no-network build-dependencies
-RUN rm -rf /root/.cargo
 COPY . $workdir
+RUN pip install -r requirements.txt -U
+RUN pip install .
+RUN apt-get remove --purge -y libffi-dev build-essential libssl-dev git rustc cargo
+RUN rm -rf /root/.cargo
 
 # Squash layers
-FROM python:3-alpine
+FROM python:3.9-slim
 
 # COPY --from=build / /   # doesn't work on kaniko
 # Waiting for: https://github.com/GoogleContainerTools/kaniko/pull/1724
@@ -26,8 +22,8 @@ COPY --from=build /usr /usr
 COPY --from=build /home /home
 COPY --from=build /opt /opt
 COPY --from=build /lib /lib
-
 COPY --from=build /app /app
 
 WORKDIR /app
-CMD ["./run-server.sh"]
+ENV PROMETHEUS_MULTIPROC_DIR=/tmp/{{cookiecutter.project_slug}}/prometheus
+CMD ["{{cookiecutter.project_slug}}"]

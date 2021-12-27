@@ -3,7 +3,7 @@ import logging
 
 from starlette.responses import JSONResponse
 from fastapi import Request
-from {{cookiecutter.project_slug}}.exception import {{cookiecutter.baseclass}}Exception
+from {{cookiecutter.package_name}}.exception import {{cookiecutter.baseclass}}Exception
 
 logger = logging.getLogger(__name__)
 

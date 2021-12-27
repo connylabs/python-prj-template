@@ -14,5 +14,5 @@ ipython
 yapf
 pylint
 pep8
-ffctl
 mypy
+black

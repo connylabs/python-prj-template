@@ -6,21 +6,20 @@ import logging
 from fastapi import APIRouter
 from pydantic import BaseModel, Field
 
-from {{cookiecutter.project_slug}}.config import GCONFIG
 
-
-router = APIRouter(prefix="/api/v1", tags=["{{cookiecutter.project_slug}}"])
-
+router = APIRouter(prefix="/api/v1", tags=["{{cookiecutter.package_name}}"])
 logger = logging.getLogger(__name__)
 
-# CHANGE BELOW
+
 class Item(BaseModel):
     item1: str = Field(...)
+
 
 class ResponseExample(BaseModel):
     synced: bool = Field(...)
     path: str = Field(...)
     fstat: str = Field(...)
+    request: Item = Field(...)
 
 
 @router.post("/example_route", response_model=ResponseExample)
@@ -29,4 +28,5 @@ async def example_route(item: Item) -> ResponseExample:
         synced=True,
         fstat="example",
         path="/bla",
+        request=item,
     )
