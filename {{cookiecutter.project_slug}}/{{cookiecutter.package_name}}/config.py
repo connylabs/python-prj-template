@@ -49,7 +49,7 @@ def getenv(name, default=None, convert=str):
 
 
 def envbool(value: str):
-    return value and (value.lower() in ("1", "true"))
+    return value and (value.lower() in ("1", "true", "True", "yes"))
 
 
 APP_ENVIRON = getenv("APP_ENV", "development")
@@ -69,6 +69,7 @@ APP_ENVIRON = getenv("APP_ENV", "development")
 {{cookiecutter.varEnvPrefix}}_TMP_DIR = os.getenv("{{cookiecutter.varEnvPrefix}}_TMP_DIR", "/tmp/{{cookiecutter.package_name}}")
 {{cookiecutter.varEnvPrefix}}_SENTRY_URL = os.getenv("{{cookiecutter.varEnvPrefix}}_SENTRY_URL", None)
 {{cookiecutter.varEnvPrefix}}_SENTRY_ENV = os.getenv("{{cookiecutter.varEnvPrefix}}_SENTRY_ENV", "development")
+{{cookiecutter.varEnvPrefix}}_DEBUG = getenv("{{cookiecutter.varEnvPrefix}}_DEBUG", False, envbool)
 
 PROMETHEUS_MULTIPROC_DIR = os.getenv(
     "PROMETHEUS_MULTIPROC_DIR", os.path.join({{cookiecutter.varEnvPrefix}}_TMP_DIR, "prometheus")
@@ -84,7 +85,7 @@ class {{cookiecutter.baseclass}}Config:
     def __init__(self, defaults=None, confpath=None):
         self.settings = {
             "{{cookiecutter.package_name}}": {
-                "debug": False,
+                "debug": {{cookiecutter.varEnvPrefix}}_DEBUG,
                 "env": APP_ENVIRON,
                 "url": {{cookiecutter.varEnvPrefix}}_API,
                 "download_dir": {{cookiecutter.varEnvPrefix}}_DOWNLOAD_DIR,
