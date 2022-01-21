@@ -93,6 +93,20 @@ class {{cookiecutter.baseclass}}Config:
                 "tmp_dir": {{cookiecutter.varEnvPrefix}}_TMP_DIR,
                 "prometheus_dir": PROMETHEUS_MULTIPROC_DIR,
             },
+            "fastapi": {
+                'middlewares': [], # ['cors', 'tokenAuth']
+                "cors": {
+                    "allow_origin_regex": r"^.*$",
+                    "allow_origins": [
+                        "http://localhost:8080",
+                        "http://localhost:8000",
+                        "http://localhsot",
+                    ],
+                    "allow_credentials": False,
+                    "allow_methods": ["*"],
+                    "allow_headers": ["*"],
+                },
+            },
             "sentry": {
                 "url": {{cookiecutter.varEnvPrefix}}_SENTRY_URL,
                 "environment": {{cookiecutter.varEnvPrefix}}_SENTRY_ENV,
@@ -108,6 +122,10 @@ class {{cookiecutter.baseclass}}Config:
     @property
     def {{cookiecutter.package_name}}(self):
         return self.settings["{{cookiecutter.package_name}}"]
+
+    @property
+    def fastapi(self):
+        return self.settings["fastapi"]
 
     @property
     def sentry(self):
