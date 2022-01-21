@@ -68,12 +68,14 @@ class TestServer:
         assert res.status_code == 200
         assert self.json(res) == {"version": {{ cookiecutter.project_slug }}.__version__}
 
+    @pytest.mark.asyncio
     def test_version(self, client):
         url = self._url_for("")
         res = self.Client(client, self.headers()).get(url)
         assert res.status_code == 200
         assert self.json(res) == {"version": {{ cookiecutter.project_slug }}.__version__}
 
+    @pytest.mark.asyncio
     def test_error(self, client):
         url = self._url_for("/error")
         res = self.Client(client, self.headers()).get(url)
@@ -84,6 +86,7 @@ class TestServer:
         res = self.Client(client, self.headers()).get(url)
         assert res.status_code == 404
 
+    @pytest.mark.asyncio
     def test_500(self, client):
         url = self._url_for("/error_uncatched")
 
