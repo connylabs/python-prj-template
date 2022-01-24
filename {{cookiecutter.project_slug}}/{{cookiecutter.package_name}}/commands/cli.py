@@ -1,3 +1,4 @@
+import logging
 import argparse
 import os
 
@@ -35,6 +36,7 @@ def set_cmd_env(env):
 
 
 def cli():
+    logging.basicConfig(level=logging.INFO)
     try:
         parser = get_parser(all_commands())
         unknown = None

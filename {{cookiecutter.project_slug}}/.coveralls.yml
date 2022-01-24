@@ -1,1 +1,0 @@
-repo_token: {{cookiecutter.coveralls_token}}

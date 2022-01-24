@@ -1,14 +1,15 @@
-import requests
+from typing import Any, Dict
 
+import requests
 import {{cookiecutter.package_name}}
 from {{cookiecutter.package_name}}.commands.command_base import CommandBase
 
 
 class VersionCmd(CommandBase):
     name = "version"
-    help_message = "show versions"
+    help_message = "show client and server version"
 
-    def __init__(self, options):
+    def __init__(self, options) -> None:
         super().__init__(options)
         self.api_version = None
         self.client_version = None
@@ -16,7 +17,7 @@ class VersionCmd(CommandBase):
         self.ssl_verify = options.cacert or not options.insecure
 
     @classmethod
-    def _add_arguments(cls, parser):
+    def _add_arguments(cls, parser) -> None:
         cls._add_serverhost_arg(parser)
 
     def _api_version(self):
@@ -30,27 +31,27 @@ class VersionCmd(CommandBase):
             api_version = ".. Connection error"
         return api_version
 
-    def _cli_version(self):
+    def _cli_version(self) -> str:
         return {{cookiecutter.package_name}}.__version__
 
-    def _version(self):
+    def _version(self) -> Dict[str, Any]:
         return {
             "api-version": self._api_version(),
             "client-version": self._cli_version(),
         }
 
-    def _call(self):
+    def _call(self) -> None:
         version = self._version()
         self.api_version = version["api-version"]
         self.client_version = version["client-version"]
 
-    def _render_dict(self):
+    def _render_dict(self) -> Dict[str, str]:
         return {"api-version": self.api_version, "client-version": self.client_version}
 
-    def _render_console(self):
+    def _render_console(self) -> str:
         return "\n".join(
             [
-                "Api-version: %s" % self.api_version,
-                "Client-version: %s" % self.client_version,
+                f"Api-version: {self.api_version}",
+                f"Client-version: {self.client_version}",
             ]
         )

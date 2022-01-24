@@ -1,10 +1,12 @@
-3import os
 import logging
+import json
+from typing import Mapping, Dict, Literal
+from urllib.parse import urlparse, ParseResult, urlencode
 
 import requests
-from requests.utils import urlparse
 
 import {{cookiecutter.package_name}}
+
 
 logger = logging.getLogger(__name__)
 DEFAULT_SERVER = "http://localhost:8080"
@@ -23,12 +25,11 @@ class {{cookiecutter.baseclass}}Client:
         self.token = token
         self._headers: dict = {
             "Content-Type": "application/json",
-            "User-Agent": f"gmail2s3py-cli/{gmail2s3.__version__}",
+            "User-Agent": f"{{cookiecutter.package_name}}-cli/{ {{cookiecutter.package_name}}.__version__}",
         }
         if headers:
             self._headers.update(headers)
         self.verify = requests_verify
-
 
     def _url(self, path: str) -> str:
         return self.endpoint.geturl() + path
@@ -54,14 +55,21 @@ class {{cookiecutter.baseclass}}Client:
         resp.raise_for_status()
         return resp.json()
 
-    def _request(self, method: str, path: str, params: dict | None = None, body: dict | None = None):
+    def _request(
+        self,
+        method: str,
+        path: str,
+        params: dict | None = None,
+        body: dict | None = None,
+    ):
+        data = None
         if params:
             path = path + "?" + urlencode(params)
         if body:
             data = json.dumps(body)
         return getattr(requests, method)(
             path,
-            data=json.dumps(body),
+            data=data,
             headers=self.headers(),
         )
 

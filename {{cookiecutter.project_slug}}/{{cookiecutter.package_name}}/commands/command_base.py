@@ -18,21 +18,22 @@ class CommandBase:
     parse_unknown = False
     output_default = "text"
 
-    def __init__(self, args_options, unknown=None):
+    def __init__(self, args_options, unknown=None) -> None:
         self.unknown = unknown
         self.args_options = args_options
         self.output = args_options.output
 
-    def render(self):
+    def render(self) -> None:
         if self.output == "none":
             return
         if self.output == "json":
             self._render_json()
-        if self.output == "yaml":
+        elif self.output == "yaml":
             self._render_yaml()
-        print(self._render_console())
+        else:
+            print(self._render_console())
 
-    def render_error(self, payload):
+    def render_error(self, payload) -> None:
         if self.output == "json":
             self._render_json(payload)
         elif self.output == "yaml":
@@ -44,7 +45,7 @@ class CommandBase:
             )
 
     @classmethod
-    def call(cls, options, unknown=None, render=True):
+    def call(cls, options, unknown=None, render: bool = True) -> None:
         # @TODO(ant31): all methods should have the 'unknown' parameter
         if cls.parse_unknown:
             obj = cls(options, unknown)
@@ -52,7 +53,7 @@ class CommandBase:
             obj = cls(options)
         obj.exec_cmd(render=render)
 
-    def exec_cmd(self, render=True):
+    def exec_cmd(self, render: bool = True) -> None:
         try:
             self._call()
         except requests.exceptions.RequestException as exc:
@@ -75,7 +76,7 @@ class CommandBase:
             self.render()
 
     @classmethod
-    def add_parser(cls, subparsers, env=None):
+    def add_parser(cls, subparsers, env=None) -> None:
         parser = subparsers.add_parser(cls.name, help=cls.help_message)
         cls._add_output_option(parser)
         cls._add_arguments(parser)
@@ -83,7 +84,7 @@ class CommandBase:
             func=cls.call, env=env, which_cmd=cls.name, parse_unknown=cls.parse_unknown
         )
 
-    def _render_json(self, value=None):
+    def _render_json(self, value=None) -> None:
         if not value:
             value = self._render_dict()
         print(json.dumps(value, indent=2, separators=(",", ": ")))
@@ -94,7 +95,7 @@ class CommandBase:
     def _render_console(self):
         raise NotImplementedError
 
-    def _render_yaml(self, value=None):
+    def _render_yaml(self, value=None) -> None:
         if not value:
             value = self._render_dict()
         print(yaml.safe_dump(value, default_flow_style=False, width=float("inf")))
@@ -107,7 +108,7 @@ class CommandBase:
         raise NotImplementedError
 
     @classmethod
-    def _add_output_option(cls, parser):
+    def _add_output_option(cls, parser) -> None:
         parser.add_argument(
             "--output",
             default=cls.output_default,
@@ -116,7 +117,7 @@ class CommandBase:
         )
 
     @classmethod
-    def _add_serverhost_arg(cls, parser):
+    def _add_serverhost_arg(cls, parser) -> None:
         parser.add_argument(
             "server_host", nargs=1, action=ServerHost, help="server API url"
         )
@@ -135,7 +136,7 @@ class CommandBase:
         )
 
     @classmethod
-    def _add_serverhost_option(cls, parser):
+    def _add_serverhost_option(cls, parser) -> None:
         parser.add_argument("-H", "--host", default=None, help=argparse.SUPPRESS)
         parser.add_argument(
             "-k",

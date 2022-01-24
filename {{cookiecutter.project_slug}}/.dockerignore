@@ -3,7 +3,7 @@
 .gitignore
 ROADMAP.md
 .DS_Store
-
+.localconfig.yaml
 # Byte-compiled / optimized / DLL files
 **/*.pyc
 **/*.pyo

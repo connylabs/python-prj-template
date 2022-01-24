@@ -24,7 +24,7 @@ def logfile_path(jsonfmt=False, debug=False):
     if debug or os.getenv("DEBUGLOG", "false").lower() == "true":
         _debug = "_debug"
 
-    return os.path.join({{cookiecutter.varEnvPrefix}}_CONF_DIR, "logging%s%s.conf" % (_debug, _json))
+    return os.path.join({{cookiecutter.varEnvPrefix}}_CONF_DIR, f"logging{_debug}{_json}.conf")
 
 
 def getenv(name, default=None, convert=str):
@@ -94,7 +94,7 @@ class {{cookiecutter.baseclass}}Config:
                 "prometheus_dir": PROMETHEUS_MULTIPROC_DIR,
             },
             "fastapi": {
-                'middlewares': [], # ['cors', 'tokenAuth']
+                "middlewares": [],  # ["cors", "tokenAuth"]
                 "cors": {
                     "allow_origin_regex": r"^.*$",
                     "allow_origins": [
