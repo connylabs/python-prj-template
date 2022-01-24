@@ -1,0 +1,18 @@
+---
+stages:
+  - test
+
+variables:
+  FAILFASTCI_NAMESPACE: connylabs
+
+# RUN TEST
+unit test:
+  image:
+    name: python:3.10
+  stage: test
+  before_script:
+    - pip install cookiecutter
+  script:
+    - make test-all
+  tags:
+    - kubernetes
