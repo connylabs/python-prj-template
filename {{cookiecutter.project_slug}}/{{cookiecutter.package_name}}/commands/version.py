@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 
 import requests
 import {{cookiecutter.package_name}}
@@ -34,7 +34,7 @@ class VersionCmd(CommandBase):
     def _cli_version(self) -> str:
         return {{cookiecutter.package_name}}.__version__
 
-    def _version(self) -> Dict[str, Any]:
+    def _version(self) -> dict[str, Any]:
         return {
             "api-version": self._api_version(),
             "client-version": self._cli_version(),
@@ -45,7 +45,7 @@ class VersionCmd(CommandBase):
         self.api_version = version["api-version"]
         self.client_version = version["client-version"]
 
-    def _render_dict(self) -> Dict[str, str]:
+    def _render_dict(self) -> dict[str, str]:
         return {"api-version": self.api_version, "client-version": self.client_version}
 
     def _render_console(self) -> str:
