@@ -1,6 +1,6 @@
 import logging
 import json
-from typing import Mapping, Dict, Literal
+from typing import Mapping, Literal
 from urllib.parse import urlparse, ParseResult, urlencode
 
 import requests
@@ -37,7 +37,7 @@ class {{cookiecutter.baseclass}}Client:
     def _configure_endpoint(self, endpoint):
         return urlparse(endpoint)
 
-    def headers(self, content_type: Literal["json", "form"] = "json") -> Dict[str, str]:
+    def headers(self, content_type: Literal["json", "form"] = "json") -> dict[str, str]:
         headers: dict = {}
         headers.update(self._headers)
         if content_type == "json":
