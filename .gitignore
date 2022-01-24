@@ -1,7 +1,6 @@
 # Byte-compiled / optimized / DLL files
+c
 .env
-apptest
-cutterapp
 .python-version
 localconfig.yaml
 __pycache__/

@@ -1,0 +1,13 @@
+fastapi[all]>=0.71.0
+pydantic>=1.9.0
+PyYAML
+requests
+starlette>=0.17.1
+uvicorn
+uvloop
+aiohttp
+async-timeout
+starlette_exporter
+paramiko
+sentry-sdk
+gunicorn>=0.19
