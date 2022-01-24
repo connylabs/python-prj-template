@@ -1,0 +1,20 @@
+default_context:
+  full_name: CONNY GmbH
+  email: dev@conny.de
+  github_username: connylabs
+  project_name: Cutterapp
+  project_slug: cutterapp
+  package_name: cutterapp
+  varEnvPrefix: CUTTERAPP
+  baseclass: Cutterapp
+  project_repo: connylabs/cutterapp
+  git: https://github.com/connylabs/cutterapp
+  project_short_description: Store all incoming emails of Google Mail account to S3, including attachments
+  pypi_username: connylabs
+  version: 0.0.1
+  docker_registry: img.conny.dev/connylabs/cutterapp
+  use_pytest: y
+  create_author_file: n
+  coveralls_token: ''
+  open_source_license: Apache Software License 2.0
+  _template: .

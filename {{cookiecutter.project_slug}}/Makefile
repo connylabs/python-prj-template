@@ -111,7 +111,7 @@ dockerfile-push: dockerfile
 gen-ci:
 	ffctl gen
 
-check: pylint flake8 black-test
+check: pylint flake8 black-diff black-test
 
 pyre:
 	pyre
@@ -119,10 +119,13 @@ pyre:
 prepare: yapf gen-ci check
 
 black:
-	black -t py39 conf tests $(package)
+	black -t py310 conf tests $(package)
 
 black-test:
-	black -t py39 conf tests $(package) --check
+	black -t py310 conf tests $(package) --check
+
+black-diff:
+	black -t py310 conf tests $(package) --diff
 
 rename:
 	ack {{cookiecutter.varEnvPrefix}} -l | xargs -i{} sed -r -i "s/{{cookiecutter.varEnvPrefix}}/\{\{cookiecutter.varEnvPrefix\}\}/g" {}

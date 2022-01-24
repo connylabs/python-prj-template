@@ -33,9 +33,7 @@ app = FastAPI()
 
 def _create_tmp_dir():
     pathlib.Path(GCONFIG.{{cookiecutter.project_slug}}["download_dir"]).mkdir(parents=True, exist_ok=True)
-    pathlib.Path(GCONFIG.{{cookiecutter.project_slug}}["prometheus_dir"]).mkdir(
-        parents=True, exist_ok=True
-    )
+    pathlib.Path(GCONFIG.{{cookiecutter.project_slug}}["prometheus_dir"]).mkdir(parents=True, exist_ok=True)
 
 
 @app.middleware("http")

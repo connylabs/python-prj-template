@@ -21,3 +21,4 @@ types-requests
 types-PyYAML
 types-certifi
 types-ujson
+cookiecutter
