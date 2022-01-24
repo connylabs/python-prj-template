@@ -5,7 +5,7 @@ import requests
 import requests_mock
 
 import {{cookiecutter.package_name}}
-from {{cookiecutter.package_name}}.client import DEFAULT_SERVER, {{Cookiecutter.Package_Name}}Client
+from {{cookiecutter.package_name}}.client import DEFAULT_SERVER, {{cookiecutter.baseclass}}Client
 from {{cookiecutter.package_name}}.commands.version import VersionCmd
 
 DEFAULT_PREFIX = ""

@@ -15,7 +15,6 @@
     "docker_registry": "quay.io/{{cookiecutter.github_username}}/{{cookiecutter.project_slug}}",
     "use_pytest": "y",
     "create_author_file": "y",
-    "coveralls_token": "",
     "open_source_license": [
         "Apache Software License 2.0",
         "MIT license",

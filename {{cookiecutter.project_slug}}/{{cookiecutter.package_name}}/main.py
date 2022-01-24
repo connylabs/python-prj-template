@@ -33,7 +33,9 @@ app = FastAPI()
 
 def _create_tmp_dir():
     pathlib.Path(GCONFIG.{{cookiecutter.project_slug}}["download_dir"]).mkdir(parents=True, exist_ok=True)
-    pathlib.Path(GCONFIG.{{cookiecutter.project_slug}}["prometheus_dir"]).mkdir(parents=True, exist_ok=True)
+    pathlib.Path(GCONFIG.{{cookiecutter.project_slug}}["prometheus_dir"]).mkdir(
+        parents=True, exist_ok=True
+    )
 
 
 @app.middleware("http")
@@ -89,7 +91,7 @@ _create_tmp_dir()
 app.add_middleware(PrometheusMiddleware, app_name="{{cookiecutter.project_slug}}")
 app.add_middleware(ProxyHeadersMiddleware)
 app.add_middleware(SentryAsgiMiddleware)
-if 'cors' in GCONFIG.fastapi.middlewares:
+if "cors" in GCONFIG.fastapi["middlewares"]:
     app.add_middleware(
         CORSMiddleware,
         allow_origin_regex=GCONFIG.fastapi["cors"]["allow_origin_regex"],
@@ -98,7 +100,7 @@ if 'cors' in GCONFIG.fastapi.middlewares:
         allow_methods=GCONFIG.fastapi["cors"]["allow_methods"],
         allow_headers=GCONFIG.fastapi["cors"]["allow_headers"],
     )
-if 'tokenAuth' in GCONFIG.fastapi.middlewares:
+if "tokenAuth" in GCONFIG.fastapi["middlewares"]:
     app.middleware("http")(add_check_token)
 
 app.add_middleware(ExceptionMiddleware, handlers=app.exception_handlers)

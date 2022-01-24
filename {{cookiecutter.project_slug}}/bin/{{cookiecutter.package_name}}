@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from gmail2s3.commands.cli import cli
+from {{cookiecutter.package_name}}.commands.cli import cli
 
 
 if __name__ == "__main__":

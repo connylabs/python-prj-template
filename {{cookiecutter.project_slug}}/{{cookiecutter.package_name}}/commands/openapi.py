@@ -4,18 +4,18 @@ from {{cookiecutter.package_name}}.commands.command_base import CommandBase
 
 class OpenapiCmd(CommandBase):
     name = "openapi"
-    help_message = "show openapis"
+    help_message = "Generate openapis schema"
     output_default = "yaml"
 
-    def __init__(self, options):
+    def __init__(self, options) -> None:
         super().__init__(options)
         self.openapi = None
 
     @classmethod
-    def _add_arguments(cls, parser):
+    def _add_arguments(cls, parser) -> None:
         pass
 
-    def _call(self):
+    def _call(self) -> None:
         self.openapi = openapi()
 
     def _render_dict(self):
