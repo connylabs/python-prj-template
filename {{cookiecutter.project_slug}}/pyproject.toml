@@ -1,0 +1,109 @@
+
+[tool.poetry]
+name = "{{ cookiecutter.package_name }}"
+version = "{{ cookiecutter.version }}"
+description = "{{ cookiecutter.project_slug }}"
+license = {text = "{{ cookiecutter.open_source_license }}"}
+
+[tool.poetry.dependencies]
+    "aiohttp",
+    "fastapi[all]>=0.71.0",
+    "pydantic",
+    "sentry-sdk",
+    "starlette",
+    "starlette_exporter",
+    "uvicorn",
+    "uvloop",
+    "fastapi",
+    "pydantic",
+    "PyYAML",
+    "requests",
+    "paramiko",
+]
+
+[project.readme]
+text = "readme"
+
+[project.scripts]
+"{{ cookiecutter.project_slug }}" = "{{ cookiecutter.package_name }}.cli:cli"
+
+[project.optional-dependencies]
+testing = [
+    "pytest",
+    "coverage",
+    "pytest-cov",
+    "pytest-ordering",
+    "requests-mock",
+    "coverage>=4.0",
+    "flake8",
+    "pytest-flask>=0.10.0",
+    "sphinxcontrib-napoleon",
+]
+
+[tool.bumpversion]
+current_version = "{{ cookiecutter.package_name }}"
+commit = "True"
+tag = "True"
+
+[tool.bumpversion.file]
+setup = {py = {
+}}
+VERSION = {
+}
+
+[tool.bumpversion.file."src/{{ cookiecutter"]
+"package_name }}/__init__" = {py = {
+}}
+
+[tool.distutils.isort]
+profile = '"black"'
+
+[tool.wheel]
+universal = "1"
+
+[tool.black]
+line-length = "88"
+target-version = "['py310']"
+include = "'\\.pyi?$'"
+extend-exclude = ""
+
+[tool.mypy]
+# --strict
+disallow_any_generics = true
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_return_any = true
+implicit_reexport = false
+strict_equality = true
+
+[tool.pep8]
+exclude = "docs"
+max-line-length = "120"
+
+[tool.flake8]
+exclude = "docs,tests"
+max-line-length = "120"
+
+[tool.pytest.ini_options]
+testpaths = ["tests/"]
+
+[tool.coverage.run]
+branch = false
+
+[tool.setuptools]
+python-requres = ">=3.10"
+include-package-data = true
+package-dir = {"" = "{{ cookiecutter.package_name }}"}
+zip-safe = false
+test-suite = "tests"
+
+[tool.setuptools.packages.find]
+where = ["{{ cookiecutter.package_name }}"]
+namespaces = false
